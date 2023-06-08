@@ -8,4 +8,3 @@ if __name__ == "__main__":
         num = int(sys.argv[index + 1])
         total += num
     print("{}".format(total))
-
