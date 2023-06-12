@@ -1,72 +1,49 @@
 #include "lists.h"
 
-listint_t *reverse_listint(listint_t **head);
-int is_palindrome(listint_t **head);
-
 /**
-* reverse_listint - it reverse the list
-* @head: ptr to the first node
-* Return: a ptr to the reverse list head
-
-**/
-
-listint_t *reverse_listint(listint_t **head)
-{
-listint_t *node = *head, *next, *prev = NULL;
-
-while (node)
-{
-next = node->next;
-node->next = prev;
-prev = node;
-node = next;
-}
-
-*head = prev;
-return (*head);
-}
-
-/**
-* is_palindrome - looks if the list has a palindrome
-* @head: ptr to the first node of the list
-* Return: ZERO if not, and 1 if palindrome
-**/
+ * is_palindrome -> checks if a singly linked list is a palindrome
+ * @head: Pointer Head
+ * Return: Depend Condition
+ */
 
 int is_palindrome(listint_t **head)
 {
-listint_t *tmp, *rev, *mid;
-size_t size = 0, i;
+	listint_t *is_slow = *head;
+	listint_t *is_fast = *head;
+	listint_t *prev = NULL;
+	listint_t *temp;
+	int is_palindrome = 1;
 
-if (*head == NULL || (*head)->next == NULL)
-return (1);
-
-tmp = *head;
-while (tmp)
-{
-size++;
-tmp = tmp->next;
-}
-
-tmp = *head;
-for (i = 0; i < (size / 2) - 1; i++)
-tmp = tmp->next;
-
-if ((size % 2) == 0 && tmp->n != tmp->next->n)
-return (0);
-
-tmp = tmp->next->next;
-rev = reverse_listint(&tmp);
-mid = rev;
-
-tmp = *head;
-while (rev)
-{
-if (tmp->n != rev->n)
-return (0);
-tmp = tmp->next;
-rev = rev->next;
-}
-reverse_listint(&mid);
-
-return (1);
+	if (*head == NULL || (*head)->next == NULL)
+		return (is_palindrome);
+	while (is_fast != NULL && is_fast->next != NULL)
+	{
+		is_fast = is_fast->next->next;
+		temp = is_slow;
+		is_slow = is_slow->next;
+		temp->next = prev;
+		prev = temp;
+	}
+	if (is_fast != NULL)
+		is_slow = is_slow->next;
+	while (is_slow != NULL)
+	{
+		if (prev->n != is_slow->n)
+		{
+			is_palindrome = 0;
+			break;
+		}
+		prev = prev->next;
+		is_slow = is_slow->next;
+	} temp = NULL;
+	is_fast = prev;
+	while (is_fast != NULL)
+	{
+		prev = is_fast->next;
+		is_fast->next = temp;
+		temp = is_fast;
+		is_fast = prev;
+	}
+	*head = temp;
+	return (is_palindrome);
 }
