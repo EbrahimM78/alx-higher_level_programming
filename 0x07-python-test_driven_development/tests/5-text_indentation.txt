@@ -1,3 +1,5 @@
+# 5-text_indentation.txt
+
 ================================
 How to Use 5-text_indentation.py
 ================================
@@ -133,14 +135,15 @@ The paramter ``text`` must be a string. Otherwise, a TypeError is raised.
     Traceback (most recent call last):
     TypeError: text must be a string
 
-::
-
-    >>> text_indentation({"one": 1, "two": 2})
+    >>> text_indentation(7)
     Traceback (most recent call last):
     TypeError: text must be a string
 
+    >>> text_indentation({"one": 1, "two": 2})
+    Traceback (most recent call last):
+    TypeError: test must be a string
 ::
 
-    >>> text_indentation(None)
+    >>> text_indentation(None):
     Traceback (most recent call last):
     TypeError: text must be a string
